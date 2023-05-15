@@ -3,6 +3,11 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Kategorija;
+use App\Models\Kurs;
+use App\Models\Predavac;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -18,6 +23,17 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+        Kategorija::truncate();
+        Predavac::truncate();
+        User::truncate();
+        Kurs::truncate();
+
+        $kategorija = new KategorijaSeeder;
+        $kategorija->run();
+
+        $predavac = new PredavacSeeder;
+        $predavac->run();
 
         $kurs = new KursSeeder;
         $kurs->run();

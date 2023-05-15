@@ -26,8 +26,12 @@ class KursFactory extends Factory
             'ocena'=>$this->faker->randomFloat($nbMaxDecimals = 2, $min=3, $max=5),
             'sadrzaj'=>$this->faker->sentence(),
             'cena'=>$this->faker->randomFloat($nbMaxDecimals = 2, $min=1, $max=50),
-            'predavac_id'=>Predavac::factory(),
-            'kategorija_id'=>Kategorija::factory(),
+            'predavac_id'=>function(){
+                return Predavac::all()->random();
+            },
+            'kategorija_id'=>function(){
+                return Kategorija::all()->random();
+            },
             'user_id'=>User::factory()
         ];
     }
