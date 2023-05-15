@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Kategorija;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -12,6 +13,6 @@ class KategorijaSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        Kategorija::factory(4)->create();
     }
 }
