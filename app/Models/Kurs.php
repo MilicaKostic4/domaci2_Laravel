@@ -14,7 +14,8 @@ class Kurs extends Model
         'trajanje',
         'godina',
         'ocena',
-        'sadrzaj'
+        'sadrzaj',
+        'cena'
     ];
 
     public function predavac(){
