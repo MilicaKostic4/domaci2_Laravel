@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\KategorijaController;
 use App\Http\Controllers\KursController;
 use App\Http\Controllers\KursKategorijaController;
@@ -30,8 +31,21 @@ Route::get('kursevi', [KursController::class, 'index']);
 
 Route::get('kategorija/{id}/kurs', [KursKategorijaController::class, 'index']);
 
-Route::delete('obrisiKurs/{id}', [KursController::class, 'destroy']);
-Route::post('novaKategorija', [KategorijaController::class, 'store']);
-
 Route::resource('kategorije', KategorijaController::class)->only(['index','show']);
-Route::resource('predavaci', PredavacController::class)->only(['index' ,'show', 'store', 'update', 'destroy']);
+Route::resource('predavaci', PredavacController::class)->only(['index' ,'show']);
+
+
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+
+Route::group(['middleware'=>['auth:sanctum']], function(){
+    Route::get('/profile', function(Request $request){
+        return auth()->user();
+    });
+
+    Route::delete('obrisiKurs/{id}', [KursController::class, 'destroy']);
+    Route::post('novaKategorija', [KategorijaController::class, 'store']);
+    Route::resource('predavaci', PredavacController::class)->only(['store', 'update', 'destroy']);
+
+    Route::post('/logout', [AuthController::class, 'logout']);
+});
