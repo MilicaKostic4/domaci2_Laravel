@@ -77,7 +77,7 @@ class PredavacController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Predavac $predavac)
+    public function update($predavac_id, Request $request)
     {
         $validator = Validator::make($request->all(),[
             'ime'=>'required|string|max:255',
@@ -90,6 +90,7 @@ class PredavacController extends Controller
             return response()->json(['Greska prilikom azuriranja predavaca!',$validator->errors()]);
         }
 
+        $predavac = Predavac::find($predavac_id);
         $predavac->ime = $request->ime;
         $predavac->prezime = $request->prezime;
         $predavac->zanimanje = $request->zanimanje;
